@@ -2,54 +2,54 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    /* LAYER 0
+     /* LAYER 0
      * ,-----------------------.
-     * |   <<  |  MUTE |  >>   |  ENCODER - PRESS (MUTE) / KNOB (VOLUME CONTROL)
+     * |  <<   |  PLAY |   >>  |  ENCODER - PRESS (PAUSE/PLAY) / KNOB (VOLUME CONTROL)
      * |-------+-------+-------|
-     * |  STOP |  PLAY | MEDIA |
+     * |  `/~  |   UP  |   F2  |
      * |-------+-------+-------|
-     * | CALC  | MAIL  | PC/FN |
+     * |  LEFT |  DOWN | RIGHT |
      * `-----------------------'
      */
 
     [0] = LAYOUT_ortho_3x3(
-      KC_MPRV, LT(2, KC_MUTE), KC_MNXT, 
-      KC_MSTP, KC_MPLY, KC_MSEL,
-      KC_CALC, KC_MAIL, LT(1, KC_MYCM)
+      KC_MPRV, LT(1, KC_MPLY), KC_MNXT, 
+      KC_GRAVE, KC_UP, LT(2, KC_F2),
+      KC_LEFT, KC_DOWN, KC_RIGHT
       ),
 
 
     /* LAYER 1
      * ,-----------------------.
-     * | MODE+ |RGB TOG| MODE- |  ENCODER - PRESS (NA) / KNOB (Hue Control)
+     * | MODE+ |       | MODE- |  ENCODER - PRESS (NA) / KNOB (Hue Control)
      * |-------+-------+-------|
-     * |  SPD- |  SPD+ |Bright |
+     * |  SPD- |  SPD+ |RGB TOG|
      * |-------+-------+-------|
-     * |  SAT+ |  SAT- |       |
+     * |  SAT+ |  SAT- |Bright |
      * `-----------------------'
      */
     
     [1] = LAYOUT_ortho_3x3(
-      RGB_MOD, RGB_TOG, RGB_RMOD, 
-      RGB_SPI, RGB_SPD, RGB_VAI, 
-      RGB_SAI, RGB_SAD, KC_TRNS
+      RGB_MOD,KC_TRNS, RGB_RMOD, 
+      RGB_SPI, RGB_SPD, RGB_TOG, 
+      RGB_SAI, RGB_SAD, RGB_VAI
       ),
 
       
-    /* LAYER 2 (ENCODER)
+    /* LAYER 2
      * ,-----------------------.
-     * |       |       |       |  ENCODER - PRESS (NA) / KNOB (Arrow Left/Right)
+     * |   <<  |  MUTE |  >>   |  ENCODER - PRESS (MUTE) / KNOB (VOLUME CONTROL)
      * |-------+-------+-------|
-     * |       |       |       |
+     * |  STOP |  PLAY |       |
      * |-------+-------+-------|
-     * |       |       |       |
+     * | CALC  | MAIL  | PC/FN |
      * `-----------------------'
      */
     
     [2] = LAYOUT_ortho_3x3(
-      KC_TRNS, KC_TRNS, KC_TRNS, 
-      KC_TRNS, KC_TRNS, KC_TRNS, 
-      KC_TRNS, KC_TRNS, KC_TRNS
+      KC_MPRV, KC_MUTE, KC_MNXT, 
+      KC_MSTP, KC_MPLY, KC_TRNS,
+      KC_CALC, KC_MAIL, KC_MYCM
       )
 
 };
@@ -62,13 +62,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
               rgblight_increase_hue();
           } else {
               rgblight_decrease_hue();
-          }
-          break;
-      case 2:
-          if (clockwise) {
-              tap_code(KC_RGHT);
-          } else {
-              tap_code(KC_LEFT);
           }
           break;
       default:
